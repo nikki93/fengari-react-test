@@ -212,6 +212,13 @@ module.exports = {
             ),
             // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
           },
+          // Lua with https://github.com/fengari-lua/fengari-loader/#usage
+          {
+            test: /\.lua$/,
+            use: [
+              { loader: "fengari-loader" }
+            ]
+          },
           // "file" loader makes sure assets end up in the `build` folder.
           // When you `import` an asset, you get its filename.
           // This loader doesn't use a "test" so it will catch all modules

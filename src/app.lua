@@ -1,4 +1,4 @@
-require './App.css'
+require './app.css'
 
 local React = require 'react'
 
@@ -44,7 +44,5 @@ end
 
 
 local ReactDOM = require 'react-dom'
-
-require './index.css'
 
 ReactDOM:render(R[App] {}, js.global.document:getElementById('root'))

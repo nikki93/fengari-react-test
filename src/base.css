@@ -1,0 +1,64 @@
+h1 {
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.3em;
+}
+
+h4 {
+  margin: 0em;
+  color: darkgreen;
+}
+
+body {
+  margin: 0 auto;
+  font-size: large;
+
+  line-height: 1.4;
+  color: #444;
+
+  width: 80%;
+  max-width: 30em;
+}
+
+code {
+  color: green;
+}
+
+blockquote {
+  background-color: papayawhip;
+  padding: 0.5em;
+}
+
+pre {
+  background-color: #EEE;
+  padding: 0.5em;
+  border: none;
+
+  font-size: medium;
+}
+
+.footnotes {
+  font-size: small;
+}
+
+.date {
+  font-size: medium;
+  color: #555;
+  padding-left: 1em;
+  padding-right: 1em;
+  white-space: nowrap;
+}
+
+.content-footer {
+  background-color: #DEE;
+  padding: 0.5em;
+}
+
+.attention {
+  text-align: center;
+  background-color: #DEE;
+  padding: 0.5em;
+}
+

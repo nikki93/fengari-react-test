@@ -35,6 +35,12 @@ local App = function()
                 'Welcome to React',
             },
         },
+        R.button {
+            onClick = function()
+                js.global:alert('clicked!')
+            end,
+            'Click me! :)',
+        },
         R.p {
             className = 'App-intro',
             'To get started, edit ', R.code { 'src/test.lua' }, ' and save to reload.',

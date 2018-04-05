@@ -55,7 +55,7 @@ ajv-keywords@^2.0.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/ajv-keywords/-/ajv-keywords-2.1.1.tgz#617997fc5f60576894c435f940d819e135b80762"
 
-ajv-keywords@^3.0.0:
+ajv-keywords@^3.0.0, ajv-keywords@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/ajv-keywords/-/ajv-keywords-3.1.0.tgz#ac2b27939c543e95d2c06e7f7f5c27be4aa543be"
 
@@ -75,7 +75,7 @@ ajv@^5.0.0, ajv@^5.1.0, ajv@^5.1.5, ajv@^5.2.0:
     fast-json-stable-stringify "^2.0.0"
     json-schema-traverse "^0.3.0"
 
-ajv@^6.0.1:
+ajv@^6.0.1, ajv@^6.1.0:
   version "6.4.0"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.4.0.tgz#d3aff78e9277549771daf0164cff48482b754fc6"
   dependencies:
@@ -2684,6 +2684,34 @@ fbjs@^0.8.16:
     promise "^7.1.1"
     setimmediate "^1.0.5"
     ua-parser-js "^0.7.9"
+
+fengari-interop@^0.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/fengari-interop/-/fengari-interop-0.1.1.tgz#d7f4ec4d6443716a55ca62c5409a0d33020d9869"
+
+fengari-loader@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/fengari-loader/-/fengari-loader-0.0.1.tgz#94d47ab821bd8291a90e5cf5ab5080886f6939e6"
+  dependencies:
+    fengari "^0.1"
+    loader-utils "^1.1.0"
+    schema-utils "^0.4.5"
+
+fengari-web@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/fengari-web/-/fengari-web-0.1.1.tgz#7a6de2114bd4b63cbc2cd26463fe7f6b981ee8d5"
+  dependencies:
+    fengari "^0.1"
+    fengari-interop "^0.1"
+
+fengari@^0.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/fengari/-/fengari-0.1.1.tgz#3cb6929851726154a33aec4118c690b78b186b43"
+  dependencies:
+    readline-sync "^1.4.9"
+    sprintf-js "^1.1.1"
+    strftime "^0.10.0"
+    tmp "^0.0.33"
 
 figures@^2.0.0:
   version "2.0.0"
@@ -5687,6 +5715,10 @@ readdirp@^2.0.0:
     readable-stream "^2.0.2"
     set-immediate-shim "^1.0.1"
 
+readline-sync@^1.4.9:
+  version "1.4.9"
+  resolved "https://registry.yarnpkg.com/readline-sync/-/readline-sync-1.4.9.tgz#3eda8e65f23cd2a17e61301b1f0003396af5ecda"
+
 recursive-readdir@2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/recursive-readdir/-/recursive-readdir-2.2.1.tgz#90ef231d0778c5ce093c9a48d74e5c5422d13a99"
@@ -6004,6 +6036,13 @@ schema-utils@^0.3.0:
   dependencies:
     ajv "^5.0.0"
 
+schema-utils@^0.4.5:
+  version "0.4.5"
+  resolved "https://registry.yarnpkg.com/schema-utils/-/schema-utils-0.4.5.tgz#21836f0608aac17b78f9e3e24daff14a5ca13a3e"
+  dependencies:
+    ajv "^6.1.0"
+    ajv-keywords "^3.1.0"
+
 select-hose@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/select-hose/-/select-hose-2.0.0.tgz#625d8658f865af43ec962bfc376a37359a4994ca"
@@ -6301,6 +6340,10 @@ split-string@^3.0.1, split-string@^3.0.2:
   dependencies:
     extend-shallow "^3.0.0"
 
+sprintf-js@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.1.1.tgz#36be78320afe5801f6cea3ee78b6e5aab940ea0c"
+
 sprintf-js@~1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
@@ -6350,6 +6393,10 @@ stream-http@^2.7.2:
     readable-stream "^2.3.3"
     to-arraybuffer "^1.0.0"
     xtend "^4.0.0"
+
+strftime@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/strftime/-/strftime-0.10.0.tgz#b3f0fa419295202a5a289f6d6be9f4909a617193"
 
 strict-uri-encode@^1.0.0:
   version "1.1.0"

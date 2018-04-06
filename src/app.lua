@@ -33,26 +33,27 @@ local R = setmetatable({}, {
 local logo = require './logo.svg'
 
 local App = function()
-    return R.div {
-        R.p {
+    setmetatable(_ENV, { __index = R })
+    return div {
+        p {
             style = { textAlign = 'right' },
-            R.a { href = '/', 'home' },
+            a { href = '/', 'home' },
         },
-        R.h2 'Welcome to React',
-        R.div {
+        h2 'Welcome to React',
+        div {
             className = 'date',
             '2018-04-05',
         },
-        R.img {
+        img {
             src = logo,
             alt = 'logo'
         },
-        R.div {
+        div {
             style = {
                 display = 'flex',
                 justifyContent = 'center',
             },
-            R.button {
+            button {
                 style = { textAlign = 'center' },
                 onClick = function()
                     js.global:alert('clicked!')
@@ -60,20 +61,20 @@ local App = function()
                 'Click me! :)',
             },
         },
-        R.p {
-            'To get started, edit ', R.code 'src/test.lua', ' and save to reload.',
+        p {
+            'To get started, edit ', code 'src/test.lua', ' and save to reload.',
         },
-        R.div {
+        div {
             className = 'content-footer',
-            R.ul {
-                R.li 'one',
-                R.li 'two',
+            ul {
+                li 'one',
+                li 'two',
             },
         },
-        R.ol {
+        ol {
             className = 'footnotes',
-            R.li 'omg',
-            R.li 'kk',
+            li 'omg',
+            li 'kk',
         }
     }
 end

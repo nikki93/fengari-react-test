@@ -71,22 +71,28 @@ local dom = setmetatable({}, {
 
 local createClass = require 'create-react-class'
 
-local TestStateful = createTag(createClass(JS {
+local Counter = createTag(createClass(js.global, JS {
     getInitialState = function(self)
-        return {
-            count = 0,
+        return JS {
+            count = self.props.initialCount,
         }
     end,
-
     render = function(self)
-        return p {
-            style = { textAlign = 'right' },
-            self.count,
+        return div {
+            button {
+                onClick = function()
+                    self:setState(JS { count = self.state.count + 1 })
+                end,
+                'Count!',
+            },
+            p {
+                self.state.count,
+            },
         }
     end,
 }))
 
-local TestStateless = createTag(function(self, props)
+local RightAlign = createTag(function(self, props)
     return p {
         style = { textAlign = 'right' },
         props.children,
@@ -109,7 +115,8 @@ local App = function()
         p {
             'To get started, edit ', code 'src/test.lua', ' and save to reload.',
         },
-        TestStateless { 'woah ', 'dude' },
+        Counter { initialCount = 4 },
+        RightAlign { 'woah ', 'dude' },
         blockquote {
             'To get started, edit and save to reload.',
         },
@@ -171,13 +178,6 @@ end
             style = {
                 display = 'flex',
                 justifyContent = 'center',
-            },
-            button {
-                style = { textAlign = 'center' },
-                onClick = function()
-                    js.global:alert('clicked!')
-                end,
-                'Click me! :)',
             },
         },
         img {

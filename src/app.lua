@@ -80,6 +80,8 @@ local function wrap(spec)
                 'component instance must have a `render()` function')
 
             this._lua._react = this
+
+            this._lua.props = this.props
             function this._lua:setState(updater)
                 self._react:setState(function()
                     updater()
@@ -93,9 +95,34 @@ local function wrap(spec)
             return JS {}
         end,
         render = function(this) return this._lua:render() end,
+
+        -- 'UNSAFE_' according to https://reactjs.org/docs/react-component.html#unsafe_componentwillreceiveprops
+        UNSAFE_componentWillReceiveProps = function(this, props)
+            this._lua.props = props
+            if this._lua.componentWillReceiveProps then
+                this._lua:componentWillReceiveProps(props)
+            end
+        end,
+
+        -- propTypes, contextTypes, childContextTypes, getDefaultProps(), getChildContext(),
+        -- [UNSAFE_]componentWillMount(), componentDidMount(),
+        -- shouldComponentUpdate(), [UNSAFE_]componentWillUpdate(), componentDidUpdate(),
+        -- componentWillUnmount()
     })
     return tag(reactClass)
 end
+
+
+local RightAlign = wrap(function(initialProps)
+    return {
+        render = function(self)
+            return p {
+                style = { textAlign = 'right' },
+                self.props.children,
+            }
+        end
+    }
+end)
 
 
 local CounterMethods = {}
@@ -110,32 +137,21 @@ function CounterMethods:render()
             end,
             'Count!',
         },
-        p {
+        RightAlign {
             self._count,
         },
     }
 end
 
 local CounterMeta = {
+    __name = 'Counter',
     __index = CounterMethods,
 }
 
-local Counter = wrap(function(props)
+local Counter = wrap(function(initialProps)
     return setmetatable({
-        _count = props.initialCount,
+        _count = initialProps.initialCount,
     }, CounterMeta)
-end)
-
-
-local RightAlign = wrap(function(props)
-    return {
-        render = function(self)
-            return p {
-                style = { textAlign = 'right' },
-                props.children,
-            }
-        end
-    }
 end)
 
 

@@ -69,6 +69,31 @@ local dom = setmetatable({}, {
 })
 
 
+local createClass = require 'create-react-class'
+
+local TestStateful = createTag(createClass(JS {
+    getInitialState = function(self)
+        return {
+            count = 0,
+        }
+    end,
+
+    render = function(self)
+        return p {
+            style = { textAlign = 'right' },
+            self.count,
+        }
+    end,
+}))
+
+local TestStateless = createTag(function(self, props)
+    return p {
+        style = { textAlign = 'right' },
+        props.children,
+    }
+end)
+
+
 local App = function()
     setmetatable(_ENV, { __index = dom })
     return div {
@@ -84,6 +109,7 @@ local App = function()
         p {
             'To get started, edit ', code 'src/test.lua', ' and save to reload.',
         },
+        TestStateless { 'woah ', 'dude' },
         blockquote {
             'To get started, edit and save to reload.',
         },

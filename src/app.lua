@@ -97,26 +97,35 @@ local function wrap(spec)
     return tag(reactClass)
 end
 
-local Counter = wrap(function(props)
-    return {
-        _count = props.initialCount,
-        render = function(self)
-            return div {
-                button {
-                    onClick = function()
-                        self:setState(function()
-                            self._count = self._count + 1
-                        end)
-                    end,
-                    'Count!',
-                },
-                p {
-                    self._count,
-                },
-            }
-        end,
+
+local CounterMethods = {}
+
+function CounterMethods:render()
+    return div {
+        button {
+            onClick = function()
+                self:setState(function()
+                    self._count = self._count + 1
+                end)
+            end,
+            'Count!',
+        },
+        p {
+            self._count,
+        },
     }
+end
+
+local CounterMeta = {
+    __index = CounterMethods,
+}
+
+local Counter = wrap(function(props)
+    return setmetatable({
+        _count = props.initialCount,
+    }, CounterMeta)
 end)
+
 
 local RightAlign = wrap(function(props)
     return {

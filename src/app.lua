@@ -25,18 +25,18 @@ end
 -- props, and the sequence part of the table is passed as children. This enables the following
 -- syntax:
 --
---   local tag = createTag(<type>)
+--   local t = tag(<type>)
 --
---   tag <child1>
+--   t <child1>
 --
---   tag {
+--   t {
 --     <prop1> = <value1>,
 --     <prop2> = <value2>,
 --     <child1>,
 --     <child2>,
 --   }
 --
-local function createTag(elementType)
+local function tag(elementType)
     return function(conf)
         if type(conf) ~= 'table' then
             return React:createElement(elementType, js.null, conf)
@@ -62,40 +62,70 @@ end
 --
 local dom = setmetatable({}, {
     __index = function(r, type)
-        local tag = createTag(type)
-        r[type] = tag -- Cache it
-        return tag
+        local t = tag(type)
+        r[type] = t -- Cache it
+        return t
     end
 })
 
+local createReactClass = require 'create-react-class'
+local function wrap(spec)
+    if type(spec) == 'function' then spec = { constructor = spec } end
+    local reactClass = createReactClass(nil, JS {
+        getInitialState = function(this)
+            this._lua = spec.constructor(this.props, this.context)
 
-local createClass = require 'create-react-class'
+            assert(type(this._lua == 'table'), 'component instance must be a table')
+            assert(type(this._lua.render == 'function'),
+                'component instance must have a `render()` function')
 
-local Counter = createTag(createClass(js.global, JS {
-    getInitialState = function(self)
-        return JS {
-            count = self.props.initialCount,
-        }
-    end,
-    render = function(self)
-        return div {
-            button {
-                onClick = function()
-                    self:setState(JS { count = self.state.count + 1 })
-                end,
-                'Count!',
-            },
-            p {
-                self.state.count,
-            },
-        }
-    end,
-}))
+            this._lua._react = this
+            function this._lua:setState(updater)
+                self._react:setState(function()
+                    updater()
+                    return JS {}
+                end)
+            end
+            function this._lua:forceUpdate()
+                return self._react:forceUpdate()
+            end
 
-local RightAlign = createTag(function(self, props)
-    return p {
-        style = { textAlign = 'right' },
-        props.children,
+            return JS {}
+        end,
+        render = function(this) return this._lua:render() end,
+    })
+    return tag(reactClass)
+end
+
+local Counter = wrap(function(props)
+    return {
+        _count = props.initialCount,
+        render = function(self)
+            return div {
+                button {
+                    onClick = function()
+                        self:setState(function()
+                            self._count = self._count + 1
+                        end)
+                    end,
+                    'Count!',
+                },
+                p {
+                    self._count,
+                },
+            }
+        end,
+    }
+end)
+
+local RightAlign = wrap(function(props)
+    return {
+        render = function(self)
+            return p {
+                style = { textAlign = 'right' },
+                props.children,
+            }
+        end
     }
 end)
 
@@ -202,4 +232,4 @@ end
 
 local ReactDOM = require 'react-dom'
 
-ReactDOM:render(createTag(App) {}, js.global.document:getElementById('root'))
+ReactDOM:render(tag(App) {}, js.global.document:getElementById('root'))

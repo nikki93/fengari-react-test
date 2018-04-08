@@ -82,12 +82,14 @@ local function wrap(spec)
             this._lua._react = this
 
             this._lua.props = this.props
+
             function this._lua:setState(updater)
                 self._react:setState(function()
                     updater()
                     return JS {}
                 end)
             end
+
             function this._lua:forceUpdate()
                 return self._react:forceUpdate()
             end
